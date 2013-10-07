@@ -8,6 +8,13 @@
 
 *You can of course still use (or fork) one of the older versions if you rely on these features and can live with (or fix) the bugginess.*
 
+***Announcement update: 2013-10-07***
+
+*Reviews are supported again. Now, they are downloaded from iTunes RSS feeds.
+by René BIGOT 2012-12-19 (https://github.com/renebigot/AppSales-Mobile/commit/7c35f800d0715d2624b9e78395d2d807fcd31991)
+* enhanced using review id instead of user name as key
+* use next page link in rss
+
 ---
 
 AppSales allows iOS and Mac App Store developers to download and analyze their sales reports from iTunes Connect on the iPhone.

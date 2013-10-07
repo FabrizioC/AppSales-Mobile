@@ -48,6 +48,10 @@
 - (void)loadView
 {
 	[super loadView];
+  if( [self respondsToSelector:@selector(edgesForExtendedLayout)] )
+  {
+    [self performSelector:@selector(setEdgesForExtendedLayout:) withObject:[NSNumber numberWithInteger:0]];
+  }
 	self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
 	
 	viewMode = (self.selectedProduct) ? ReportDetailViewModeCountries : ReportDetailViewModeProducts;

@@ -7,6 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49D654711802F8DE0017E294 /* ReviewTemplate.html in Resources */ = {isa = PBXBuildFile; fileRef = 49D654701802F8DE0017E294 /* ReviewTemplate.html */; };
+		49EC50F91802E8BC006626AD /* Reviews@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49EC50F11802E8BC006626AD /* Reviews@2x.png */; };
+		49EC50FA1802E8BC006626AD /* Reviews.png in Resources */ = {isa = PBXBuildFile; fileRef = 49EC50F21802E8BC006626AD /* Reviews.png */; };
+		49EC50FB1802E8BC006626AD /* ReviewBarButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49EC50F31802E8BC006626AD /* ReviewBarButton@2x.png */; };
+		49EC50FC1802E8BC006626AD /* ReviewBarButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 49EC50F41802E8BC006626AD /* ReviewBarButton.png */; };
+		49EC50FD1802E8BC006626AD /* AllReviewsButtonHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49EC50F51802E8BC006626AD /* AllReviewsButtonHighlighted@2x.png */; };
+		49EC50FE1802E8BC006626AD /* AllReviewsButtonHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 49EC50F61802E8BC006626AD /* AllReviewsButtonHighlighted.png */; };
+		49EC50FF1802E8BC006626AD /* AllReviewsButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49EC50F71802E8BC006626AD /* AllReviewsButton@2x.png */; };
+		49EC51001802E8BC006626AD /* AllReviewsButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 49EC50F81802E8BC006626AD /* AllReviewsButton.png */; };
+		49EC51021802EA2B006626AD /* stores.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49EC51011802EA2B006626AD /* stores.plist */; };
+		49EC51051802EC35006626AD /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC51041802EC35006626AD /* XMLReader.m */; };
+		49EC51081802EC65006626AD /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC51071802EC65006626AD /* Review.m */; };
+		49EC51121802ECD2006626AD /* ReviewDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC510B1802ECD2006626AD /* ReviewDetailViewController.m */; };
+		49EC51131802ECD2006626AD /* ReviewListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC510D1802ECD2006626AD /* ReviewListViewController.m */; };
+		49EC51141802ECD2006626AD /* ReviewSummaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC510F1802ECD2006626AD /* ReviewSummaryView.m */; };
+		49EC51151802ECD2006626AD /* ReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC51111802ECD2006626AD /* ReviewsViewController.m */; };
+		49EC51181802ED19006626AD /* ReviewDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC51171802ED19006626AD /* ReviewDownloadManager.m */; };
 		6D81575414CB3C2B005E8F3F /* KKKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D81574914CB3C2B005E8F3F /* KKKeychain.m */; };
 		6D81575514CB3C2B005E8F3F /* KKPasscodeLock.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D81574B14CB3C2B005E8F3F /* KKPasscodeLock.m */; };
 		6D81575614CB3C2B005E8F3F /* KKPasscodeSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D81574D14CB3C2B005E8F3F /* KKPasscodeSettingsViewController.m */; };
@@ -632,6 +649,30 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		49D654701802F8DE0017E294 /* ReviewTemplate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ReviewTemplate.html; sourceTree = "<group>"; };
+		49EC50F11802E8BC006626AD /* Reviews@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Reviews@2x.png"; sourceTree = "<group>"; };
+		49EC50F21802E8BC006626AD /* Reviews.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Reviews.png; sourceTree = "<group>"; };
+		49EC50F31802E8BC006626AD /* ReviewBarButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ReviewBarButton@2x.png"; sourceTree = "<group>"; };
+		49EC50F41802E8BC006626AD /* ReviewBarButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ReviewBarButton.png; sourceTree = "<group>"; };
+		49EC50F51802E8BC006626AD /* AllReviewsButtonHighlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AllReviewsButtonHighlighted@2x.png"; sourceTree = "<group>"; };
+		49EC50F61802E8BC006626AD /* AllReviewsButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AllReviewsButtonHighlighted.png; sourceTree = "<group>"; };
+		49EC50F71802E8BC006626AD /* AllReviewsButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AllReviewsButton@2x.png"; sourceTree = "<group>"; };
+		49EC50F81802E8BC006626AD /* AllReviewsButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AllReviewsButton.png; sourceTree = "<group>"; };
+		49EC51011802EA2B006626AD /* stores.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = stores.plist; sourceTree = "<group>"; };
+		49EC51031802EC35006626AD /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
+		49EC51041802EC35006626AD /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
+		49EC51061802EC65006626AD /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Review.h; sourceTree = "<group>"; };
+		49EC51071802EC65006626AD /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Review.m; sourceTree = "<group>"; };
+		49EC510A1802ECD2006626AD /* ReviewDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewDetailViewController.h; sourceTree = "<group>"; };
+		49EC510B1802ECD2006626AD /* ReviewDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewDetailViewController.m; sourceTree = "<group>"; };
+		49EC510C1802ECD2006626AD /* ReviewListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewListViewController.h; sourceTree = "<group>"; };
+		49EC510D1802ECD2006626AD /* ReviewListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewListViewController.m; sourceTree = "<group>"; };
+		49EC510E1802ECD2006626AD /* ReviewSummaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewSummaryView.h; sourceTree = "<group>"; };
+		49EC510F1802ECD2006626AD /* ReviewSummaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewSummaryView.m; sourceTree = "<group>"; };
+		49EC51101802ECD2006626AD /* ReviewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewsViewController.h; sourceTree = "<group>"; };
+		49EC51111802ECD2006626AD /* ReviewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewsViewController.m; sourceTree = "<group>"; };
+		49EC51161802ED0C006626AD /* ReviewDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReviewDownloadManager.h; sourceTree = "<group>"; };
+		49EC51171802ED19006626AD /* ReviewDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewDownloadManager.m; sourceTree = "<group>"; };
 		6D81574814CB3C2B005E8F3F /* KKKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKKeychain.h; sourceTree = "<group>"; };
 		6D81574914CB3C2B005E8F3F /* KKKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKKeychain.m; sourceTree = "<group>"; };
 		6D81574A14CB3C2B005E8F3F /* KKPasscodeLock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKPasscodeLock.h; sourceTree = "<group>"; };
@@ -1345,6 +1386,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		49EC51091802ECB2006626AD /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				49EC510A1802ECD2006626AD /* ReviewDetailViewController.h */,
+				49EC510B1802ECD2006626AD /* ReviewDetailViewController.m */,
+				49EC510C1802ECD2006626AD /* ReviewListViewController.h */,
+				49EC510D1802ECD2006626AD /* ReviewListViewController.m */,
+				49EC510E1802ECD2006626AD /* ReviewSummaryView.h */,
+				49EC510F1802ECD2006626AD /* ReviewSummaryView.m */,
+				49EC51101802ECD2006626AD /* ReviewsViewController.h */,
+				49EC51111802ECD2006626AD /* ReviewsViewController.m */,
+			);
+			name = Review;
+			sourceTree = "<group>";
+		};
 		7F1499D113BE312100D89064 /* Report Download */ = {
 			isa = PBXGroup;
 			children = (
@@ -1356,6 +1412,8 @@
 				7F1B153613C8029600243AA3 /* ReportImportOperation.m */,
 				7F454FAC13D6496400AE47D1 /* IconManager.h */,
 				7F454FAD13D6496600AE47D1 /* IconManager.m */,
+				49EC51161802ED0C006626AD /* ReviewDownloadManager.h */,
+				49EC51171802ED19006626AD /* ReviewDownloadManager.m */,
 			);
 			name = "Report Download";
 			sourceTree = "<group>";
@@ -1457,6 +1515,8 @@
 				7FDF6E8013D8962500B8CC4E /* countries.plist */,
 				7FDF6E8213D89B1000B8CC4E /* countries_simple.plist */,
 				7FAEB68E13E75AFF00750788 /* About.html */,
+				49D654701802F8DE0017E294 /* ReviewTemplate.html */,
+				49EC51011802EA2B006626AD /* stores.plist */,
 			);
 			name = "Supporting Files";
 			path = Support;
@@ -1513,6 +1573,14 @@
 				7FAEB67713E6DD4C00750788 /* Account@2x.png */,
 				7FFFB39713D4573700AD18E3 /* Sales.png */,
 				7F454F8713D4B4CF00AE47D1 /* Sales@2x.png */,
+				49EC50F11802E8BC006626AD /* Reviews@2x.png */,
+				49EC50F21802E8BC006626AD /* Reviews.png */,
+				49EC50F31802E8BC006626AD /* ReviewBarButton@2x.png */,
+				49EC50F41802E8BC006626AD /* ReviewBarButton.png */,
+				49EC50F51802E8BC006626AD /* AllReviewsButtonHighlighted@2x.png */,
+				49EC50F61802E8BC006626AD /* AllReviewsButtonHighlighted.png */,
+				49EC50F71802E8BC006626AD /* AllReviewsButton@2x.png */,
+				49EC50F81802E8BC006626AD /* AllReviewsButton.png */,
 			);
 			name = Images;
 			path = ../Images;
@@ -1541,6 +1609,8 @@
 				7F1B14F213C51AC900243AA3 /* CurrencyManager.m */,
 				7F398ED013DF21F1004BEC44 /* Transaction.h */,
 				7F398ED113DF21F2004BEC44 /* Transaction.m */,
+				49EC51061802EC65006626AD /* Review.h */,
+				49EC51071802EC65006626AD /* Review.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1641,6 +1711,8 @@
 				7FFE4BB013BD497A00D9D078 /* RegexKitLite.m */,
 				7F398EBB13DE1F2D004BEC44 /* MBProgressHUD.h */,
 				7F398EBC13DE1F2D004BEC44 /* MBProgressHUD.m */,
+				49EC51031802EC35006626AD /* XMLReader.h */,
+				49EC51041802EC35006626AD /* XMLReader.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1651,6 +1723,7 @@
 				7F24E70B13E41EA20056EA97 /* Common */,
 				7F24E70C13E41EB00056EA97 /* Sales */,
 				7FDF601E13DD2193005F1E2D /* Report Details */,
+				49EC51091802ECB2006626AD /* Review */,
 			);
 			name = Dashboard;
 			sourceTree = "<group>";
@@ -2231,7 +2304,7 @@
 		7F709D1E13BC98860008DBAD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0500;
 			};
 			buildConfigurationList = 7F709D2113BC98860008DBAD /* Build configuration list for PBXProject "AppSales" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2271,6 +2344,7 @@
 				7FDF6E8A13D8A96300B8CC4E /* countries@2x.png in Resources */,
 				7FDF6E8B13D8A96300B8CC4E /* countries.png in Resources */,
 				7FDF6E8D13D8BA5A00B8CC4E /* HideMap.png in Resources */,
+				49EC50FD1802E8BC006626AD /* AllReviewsButtonHighlighted@2x.png in Resources */,
 				7FDF6E8F13D8BBD800B8CC4E /* ShowMap.png in Resources */,
 				7FDF6E9213D8C68800B8CC4E /* Forward.png in Resources */,
 				7FDF6E9613D8C68E00B8CC4E /* Back.png in Resources */,
@@ -2358,6 +2432,7 @@
 				7FDF70D713D8D4AE00B8CC4E /* cf@2x.png in Resources */,
 				7FDF70D813D8D4AE00B8CC4E /* cg.png in Resources */,
 				7FDF70D913D8D4AE00B8CC4E /* cg@2x.png in Resources */,
+				49EC50FA1802E8BC006626AD /* Reviews.png in Resources */,
 				7FDF70DA13D8D4AE00B8CC4E /* ch.png in Resources */,
 				7FDF70DB13D8D4AE00B8CC4E /* ch@2x.png in Resources */,
 				7FDF70DC13D8D4AE00B8CC4E /* ci.png in Resources */,
@@ -2474,6 +2549,7 @@
 				7FDF714B13D8D4AE00B8CC4E /* hu@2x.png in Resources */,
 				7FDF714C13D8D4AE00B8CC4E /* id.png in Resources */,
 				7FDF714D13D8D4AE00B8CC4E /* id@2x.png in Resources */,
+				49EC51021802EA2B006626AD /* stores.plist in Resources */,
 				7FDF714E13D8D4AE00B8CC4E /* ie.png in Resources */,
 				7FDF714F13D8D4AE00B8CC4E /* ie@2x.png in Resources */,
 				7FDF715013D8D4AE00B8CC4E /* il.png in Resources */,
@@ -2524,6 +2600,8 @@
 				7FDF717D13D8D4AE00B8CC4E /* kz@2x.png in Resources */,
 				7FDF717E13D8D4AE00B8CC4E /* la.png in Resources */,
 				7FDF717F13D8D4AE00B8CC4E /* la@2x.png in Resources */,
+				49D654711802F8DE0017E294 /* ReviewTemplate.html in Resources */,
+				49EC50FF1802E8BC006626AD /* AllReviewsButton@2x.png in Resources */,
 				7FDF718013D8D4AE00B8CC4E /* lb.png in Resources */,
 				7FDF718113D8D4AE00B8CC4E /* lb@2x.png in Resources */,
 				7FDF718213D8D4AE00B8CC4E /* lc.png in Resources */,
@@ -2551,6 +2629,7 @@
 				7FDF719813D8D4AE00B8CC4E /* md.png in Resources */,
 				7FDF719913D8D4AE00B8CC4E /* md@2x.png in Resources */,
 				7FDF719A13D8D4AE00B8CC4E /* me.png in Resources */,
+				49EC50F91802E8BC006626AD /* Reviews@2x.png in Resources */,
 				7FDF719B13D8D4AE00B8CC4E /* me@2x.png in Resources */,
 				7FDF719C13D8D4AE00B8CC4E /* mf.png in Resources */,
 				7FDF719D13D8D4AE00B8CC4E /* mf@2x.png in Resources */,
@@ -2596,6 +2675,7 @@
 				7FDF71C513D8D4AE00B8CC4E /* nc@2x.png in Resources */,
 				7FDF71C613D8D4AE00B8CC4E /* ne.png in Resources */,
 				7FDF71C713D8D4AE00B8CC4E /* ne@2x.png in Resources */,
+				49EC51001802E8BC006626AD /* AllReviewsButton.png in Resources */,
 				7FDF71C813D8D4AE00B8CC4E /* nf.png in Resources */,
 				7FDF71C913D8D4AE00B8CC4E /* nf@2x.png in Resources */,
 				7FDF71CA13D8D4AE00B8CC4E /* ng.png in Resources */,
@@ -2669,6 +2749,7 @@
 				7FDF720E13D8D4AE00B8CC4E /* sg.png in Resources */,
 				7FDF720F13D8D4AE00B8CC4E /* sg@2x.png in Resources */,
 				7FDF721013D8D4AE00B8CC4E /* sh.png in Resources */,
+				49EC50FB1802E8BC006626AD /* ReviewBarButton@2x.png in Resources */,
 				7FDF721113D8D4AE00B8CC4E /* sh@2x.png in Resources */,
 				7FDF721213D8D4AE00B8CC4E /* si.png in Resources */,
 				7FDF721313D8D4AE00B8CC4E /* si@2x.png in Resources */,
@@ -2676,6 +2757,7 @@
 				7FDF721513D8D4AE00B8CC4E /* sj@2x.png in Resources */,
 				7FDF721613D8D4AE00B8CC4E /* sk.png in Resources */,
 				7FDF721713D8D4AE00B8CC4E /* sk@2x.png in Resources */,
+				49EC50FE1802E8BC006626AD /* AllReviewsButtonHighlighted.png in Resources */,
 				7FDF721813D8D4AE00B8CC4E /* sl.png in Resources */,
 				7FDF721913D8D4AE00B8CC4E /* sl@2x.png in Resources */,
 				7FDF721A13D8D4AE00B8CC4E /* sm.png in Resources */,
@@ -2741,6 +2823,7 @@
 				7FDF725613D8D4AE00B8CC4E /* va.png in Resources */,
 				7FDF725713D8D4AE00B8CC4E /* va@2x.png in Resources */,
 				7FDF725813D8D4AE00B8CC4E /* vc.png in Resources */,
+				49EC50FC1802E8BC006626AD /* ReviewBarButton.png in Resources */,
 				7FDF725913D8D4AE00B8CC4E /* vc@2x.png in Resources */,
 				7FDF725A13D8D4AE00B8CC4E /* ve.png in Resources */,
 				7FDF725B13D8D4AE00B8CC4E /* ve@2x.png in Resources */,
@@ -2819,6 +2902,7 @@
 				7F709D4713BC98860008DBAD /* AccountsViewController.m in Sources */,
 				7F709D6713BCB6500008DBAD /* FieldEditorViewController.m in Sources */,
 				7F709D6C13BCC3C80008DBAD /* SSKeychain.m in Sources */,
+				49EC51121802ECD2006626AD /* ReviewDetailViewController.m in Sources */,
 				7F709D8C13BD03D40008DBAD /* SalesViewController.m in Sources */,
 				7F709D8F13BD064E0008DBAD /* ASAccount.m in Sources */,
 				7FFE4BB113BD497A00D9D078 /* RegexKitLite.m in Sources */,
@@ -2826,6 +2910,8 @@
 				7F1499CA13BE15F500D89064 /* NSData+Compression.m in Sources */,
 				7F1499D013BE311600D89064 /* ReportDownloadOperation.m in Sources */,
 				7F1499E113BE544F00D89064 /* ReportDownloadCoordinator.m in Sources */,
+				49EC51151802ECD2006626AD /* ReviewsViewController.m in Sources */,
+				49EC51081802EC65006626AD /* Review.m in Sources */,
 				7F06B6BF13BF73C8004DB170 /* Report.m in Sources */,
 				7F1B14F313C51ACA00243AA3 /* CurrencyManager.m in Sources */,
 				7F1B153713C8029700243AA3 /* ReportImportOperation.m in Sources */,
@@ -2845,6 +2931,7 @@
 				7FD4ECDC13DAFF120054FE6D /* AppleFiscalCalendar.m in Sources */,
 				7FAB532C13DCFA7E0027274F /* AppIconView.m in Sources */,
 				7F4065CA13DD379B006148AA /* ReportDetailEntryCell.m in Sources */,
+				49EC51131802ECD2006626AD /* ReviewListViewController.m in Sources */,
 				7F137EB313DDDABF004655D8 /* CountryDictionary.m in Sources */,
 				7F398EBD13DE1F2D004BEC44 /* MBProgressHUD.m in Sources */,
 				7F398ED213DF21F2004BEC44 /* Transaction.m in Sources */,
@@ -2871,14 +2958,17 @@
 				7FDCCEA71594318400124140 /* compress.c in Sources */,
 				7FDCCEA81594318400124140 /* crc32.c in Sources */,
 				7FDCCEA91594318400124140 /* deflate.c in Sources */,
+				49EC51141802ECD2006626AD /* ReviewSummaryView.m in Sources */,
 				7FDCCEAA1594318400124140 /* gzio.c in Sources */,
 				7FDCCEAB1594318400124140 /* infback.c in Sources */,
 				7FDCCEAC1594318400124140 /* inffast.c in Sources */,
 				7FDCCEAD1594318400124140 /* inflate.c in Sources */,
 				7FDCCEAE1594318400124140 /* inftrees.c in Sources */,
+				49EC51181802ED19006626AD /* ReviewDownloadManager.m in Sources */,
 				7FDCCEAF1594318400124140 /* trees.c in Sources */,
 				7FDCCEB01594318400124140 /* uncompr.c in Sources */,
 				7FDCCEB11594318400124140 /* zutil.c in Sources */,
+				49EC51051802EC35006626AD /* XMLReader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2889,7 +2979,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2905,6 +2994,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-licucore";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
@@ -2915,7 +3005,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

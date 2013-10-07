@@ -8,6 +8,7 @@
 
 #import "AccountsViewController.h"
 #import "SalesViewController.h"
+#import "ReviewsViewController.h"
 #import "SSKeychain.h"
 #import "ASAccount.h"
 #import "Report.h"
@@ -108,11 +109,11 @@
 	for (ASAccount *account in self.accounts) {
 		if (account.password && account.password.length > 0) { //Only download reports for accounts with login
 			if (!account.vendorID || account.vendorID.length == 0) {
-				[[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Vendor ID Missing", nil) 
-											 message:[NSString stringWithFormat:NSLocalizedString(@"You have not entered a vendor ID for the account \"%@\". Please go to the account's settings and fill in the missing information.", nil), [account displayName]] 
-											delegate:nil 
-								   cancelButtonTitle:NSLocalizedString(@"OK", nil) 
-								   otherButtonTitles:nil] autorelease] show];
+				[[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Vendor ID Missing", nil)
+                                     message:[NSString stringWithFormat:NSLocalizedString(@"You have not entered a vendor ID for the account \"%@\". Please go to the account's settings and fill in the missing information.", nil), [account displayName]]
+                                    delegate:nil
+                           cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                           otherButtonTitles:nil] autorelease] show];
 			} else {
 				[[ReportDownloadCoordinator sharedReportDownloadCoordinator] downloadReportsForAccount:account];
 			}
@@ -135,7 +136,7 @@
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
+  [super viewDidUnload];
 }
 
 
@@ -173,7 +174,7 @@
 	if ([self.accounts count] == 0) {
 		return 0;
 	}
-	return 2;
+	return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -195,7 +196,17 @@
 		cell.badgeCount = badge;
 		cell.imageView.image = [UIImage imageNamed:@"Sales.png"];
 		cell.imageView.highlightedImage = [UIImage as_tintedImageNamed:@"Sales.png" color:[UIColor whiteColor]];
-	} else if (indexPath.row == 1) {
+  } else if (indexPath.row == 1) {
+    cell.textLabel.text = NSLocalizedString(@"Customer Reviews", nil);
+    cell.imageView.image = [UIImage imageNamed:@"Reviews.png"];
+    cell.imageView.highlightedImage = [UIImage as_tintedImageNamed:@"Reviews.png" color:[UIColor whiteColor]];
+    
+    ASAccount *account = [self.accounts objectAtIndex:indexPath.section];
+    NSFetchRequest *unreadReviewsRequest = [[[NSFetchRequest alloc] init] autorelease];
+    [unreadReviewsRequest setEntity:[NSEntityDescription entityForName:@"Review" inManagedObjectContext:[self managedObjectContext]]];
+    [unreadReviewsRequest setPredicate:[NSPredicate predicateWithFormat:@"product.account == %@ AND unread == TRUE", account]];
+    cell.badgeCount = [[self managedObjectContext] countForFetchRequest:unreadReviewsRequest error:NULL];
+  } else if (indexPath.row == 2) {
 		cell.textLabel.text = NSLocalizedString(@"Account", nil);
 		cell.imageView.image = [UIImage imageNamed:@"Account.png"];
 		cell.imageView.highlightedImage = [UIImage as_tintedImageNamed:@"Account.png" color:[UIColor whiteColor]];
@@ -247,6 +258,9 @@
 		SalesViewController *salesViewController = [[[SalesViewController alloc] initWithAccount:account] autorelease];
 		[self.navigationController pushViewController:salesViewController animated:YES];
 	} else if (indexPath.row == 1) {
+    ReviewsViewController *reviewsViewController = [[[ReviewsViewController alloc] initWithAccount:account] autorelease];
+    [self.navigationController pushViewController:reviewsViewController animated:YES];
+  } else if (indexPath.row == 2) {
 		[self editAccount:account];
 	}
 }
@@ -275,9 +289,9 @@
 	vendorIDField.placeholder = @"8XXXXXXX";
 	FieldSpecifier *selectVendorIDButtonField = [FieldSpecifier buttonFieldWithKey:@"SelectVendorIDButton" title:NSLocalizedString(@"Auto-Fill Vendor ID...", nil)];
 	
-	FieldSectionSpecifier *loginSection = [FieldSectionSpecifier sectionWithFields:[NSArray arrayWithObjects:usernameField, passwordField, vendorIDField, selectVendorIDButtonField, nil] 
-																			 title:NSLocalizedString(@"iTunes Connect Login", nil) 
-																	   description:NSLocalizedString(@"You can import reports via iTunes File Sharing without entering your login.", nil)];
+	FieldSectionSpecifier *loginSection = [FieldSectionSpecifier sectionWithFields:[NSArray arrayWithObjects:usernameField, passwordField, vendorIDField, selectVendorIDButtonField, nil]
+                                                                           title:NSLocalizedString(@"iTunes Connect Login", nil)
+                                                                     description:NSLocalizedString(@"You can import reports via iTunes File Sharing without entering your login.", nil)];
 	
 	NSArray *sections = [NSArray arrayWithObjects:titleSection, loginSection, nil];
 	FieldEditorViewController *addAccountViewController = [[[FieldEditorViewController alloc] initWithFieldSections:sections title:NSLocalizedString(@"New Account",nil)] autorelease];
@@ -311,17 +325,17 @@
 	FieldSpecifier *selectVendorIDButtonField = [FieldSpecifier buttonFieldWithKey:@"SelectVendorIDButton" title:NSLocalizedString(@"Auto-Fill Vendor ID...", nil)];
 	
 	vendorIDField.placeholder = @"8XXXXXXX";
-	FieldSectionSpecifier *loginSection = [FieldSectionSpecifier sectionWithFields:[NSArray arrayWithObjects:usernameField, passwordField, vendorIDField, selectVendorIDButtonField, nil] 
-																			 title:NSLocalizedString(@"iTunes Connect Login", nil) 
-																	   description:nil];
+	FieldSectionSpecifier *loginSection = [FieldSectionSpecifier sectionWithFields:[NSArray arrayWithObjects:usernameField, passwordField, vendorIDField, selectVendorIDButtonField, nil]
+                                                                           title:NSLocalizedString(@"iTunes Connect Login", nil)
+                                                                     description:nil];
 	FieldSpecifier *loginSubsectionField = [FieldSpecifier subsectionFieldWithSection:loginSection key:@"iTunesConnect"];
 	FieldSectionSpecifier *titleSection = [FieldSectionSpecifier sectionWithFields:[NSArray arrayWithObjects:titleField, loginSubsectionField, nil] title:nil description:nil];
 	
 	FieldSpecifier *importButtonField = [FieldSpecifier buttonFieldWithKey:kImportReportsButton title:NSLocalizedString(@"Import Reports...", nil)];
 	FieldSpecifier *exportButtonField = [FieldSpecifier buttonFieldWithKey:kExportReportsButton title:NSLocalizedString(@"Export Reports...", nil)];
-	FieldSectionSpecifier *importExportSection = [FieldSectionSpecifier sectionWithFields:[NSArray arrayWithObjects:importButtonField, exportButtonField, nil] 
-																					title:nil 
-																			  description:nil /*NSLocalizedString(@"Use iTunes file sharing to import report files from your computer.",nil)*/];
+	FieldSectionSpecifier *importExportSection = [FieldSectionSpecifier sectionWithFields:[NSArray arrayWithObjects:importButtonField, exportButtonField, nil]
+                                                                                  title:nil
+                                                                            description:nil /*NSLocalizedString(@"Use iTunes file sharing to import report files from your computer.",nil)*/];
 	
 	NSMutableArray *productFields = [NSMutableArray array];
 	NSArray *allProducts = [[account.products allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:[[[NSSortDescriptor alloc] initWithKey:@"productID" ascending:NO] autorelease]]];
@@ -379,44 +393,44 @@
 		[currencyFields addObject:currencyField];
 	}
 	FieldSectionSpecifier *currencySection = [FieldSectionSpecifier sectionWithFields:currencyFields
-																				title:NSLocalizedString(@"Currency", nil)
-																		  description:nil];
+                                                                              title:NSLocalizedString(@"Currency", nil)
+                                                                        description:nil];
 	currencySection.exclusiveSelection = YES;
 	FieldSpecifier *currencySectionField = [FieldSpecifier subsectionFieldWithSection:currencySection key:@"currency"];
-	FieldSpecifier *updateExchangeRatesButtonField = [FieldSpecifier buttonFieldWithKey:kUpdateExchangeRatesButton title:NSLocalizedString(@"Update Exchange Rates Now", nil)];	
-	FieldSectionSpecifier *mainSection = [FieldSectionSpecifier sectionWithFields:[NSArray arrayWithObjects:passcodeLockField, currencySectionField, updateExchangeRatesButtonField, nil] 
-																			title:NSLocalizedString(@"General", nil) 
-																	  description:NSLocalizedString(@"Exchange rates will automatically be refreshed periodically.", nil)];
-
-
+	FieldSpecifier *updateExchangeRatesButtonField = [FieldSpecifier buttonFieldWithKey:kUpdateExchangeRatesButton title:NSLocalizedString(@"Update Exchange Rates Now", nil)];
+	FieldSectionSpecifier *mainSection = [FieldSectionSpecifier sectionWithFields:[NSArray arrayWithObjects:passcodeLockField, currencySectionField, updateExchangeRatesButtonField, nil]
+                                                                          title:NSLocalizedString(@"General", nil)
+                                                                    description:NSLocalizedString(@"Exchange rates will automatically be refreshed periodically.", nil)];
+  
+  
   
 	// products section
 	NSString* productSortByValue = [[NSUserDefaults standardUserDefaults] objectForKey:@"ProductSortby"];
-	FieldSpecifier *productSortingByProductIdField = [FieldSpecifier checkFieldWithKey:@"sortby.productId" title:@"Product ID" 
-																			defaultValue:[productSortByValue isEqualToString:@"productId"]];
-	FieldSpecifier *productSortingByColorField = [FieldSpecifier checkFieldWithKey:@"sortby.color" title:@"Color" 
-																		defaultValue:[productSortByValue isEqualToString:@"color"]];
-	NSMutableArray *productSortingFields = [NSArray arrayWithObjects:productSortingByProductIdField, productSortingByColorField, nil];
-
-
+	FieldSpecifier *productSortingByProductIdField = [FieldSpecifier checkFieldWithKey:@"sortby.productId" title:@"Product ID"
+                                                                        defaultValue:[productSortByValue isEqualToString:@"productId"]];
+	FieldSpecifier *productSortingByColorField = [FieldSpecifier checkFieldWithKey:@"sortby.color" title:@"Color"
+                                                                    defaultValue:[productSortByValue isEqualToString:@"color"]];
+	NSMutableArray *productSortingFields = [NSMutableArray arrayWithObjects:productSortingByProductIdField, productSortingByColorField, nil];
+  
+  
 	FieldSectionSpecifier *productSortingSection = [FieldSectionSpecifier sectionWithFields:productSortingFields
-																				  title:NSLocalizedString(@"Sort By", nil)
-																			description:nil];
+                                                                                    title:NSLocalizedString(@"Sort By", nil)
+                                                                              description:nil];
 	productSortingSection.exclusiveSelection = YES;
 	FieldSpecifier *productsSectionField = [FieldSpecifier subsectionFieldWithSection:productSortingSection key:@"sortby"];
-	FieldSectionSpecifier *productsSection = [FieldSectionSpecifier sectionWithFields:[NSArray arrayWithObjects:productsSectionField, nil] 
-																				  title:NSLocalizedString(@"Products", nil) 
-																			description:NSLocalizedString(@"", nil)];
+	FieldSectionSpecifier *productsSection = [FieldSectionSpecifier sectionWithFields:[NSArray arrayWithObjects:productsSectionField, nil]
+                                                                              title:NSLocalizedString(@"Products", nil)
+                                                                        description:NSLocalizedString(@"", nil)];
 	
 	// push section
 	FieldSpecifier *downloadBoxcarButtonField = [FieldSpecifier buttonFieldWithKey:kDownloadBoxcarButton title:NSLocalizedString(@"Install Boxcar...", nil)];
 	FieldSpecifier *addToBoxcarButtonField = [FieldSpecifier buttonFieldWithKey:kAddToBoxcarButton title:NSLocalizedString(@"Add AppSales to Boxcar...", nil)];
-	FieldSectionSpecifier *pushSection = [FieldSectionSpecifier sectionWithFields:[NSArray arrayWithObjects:downloadBoxcarButtonField, addToBoxcarButtonField, nil] 
-																			title:NSLocalizedString(@"Push Notifications", nil) 
-																	  description:NSLocalizedString(@"To receive push notifications when new sales reports are available you have to install the free Boxcar app.", nil)];
+	FieldSectionSpecifier *pushSection = [FieldSectionSpecifier sectionWithFields:[NSArray arrayWithObjects:downloadBoxcarButtonField, addToBoxcarButtonField, nil]
+                                                                          title:NSLocalizedString(@"Push Notifications", nil)
+                                                                    description:NSLocalizedString(@"To receive push notifications when new sales reports are available you have to install the free Boxcar app.", nil)];
 	FieldSpecifier *pushSectionField = [FieldSpecifier subsectionFieldWithSection:pushSection key:@"PushSection"];
 	FieldSectionSpecifier *pushSectionFieldSection = [FieldSectionSpecifier sectionWithFields:[NSArray arrayWithObject:pushSectionField] title:NSLocalizedString(@"Push Notifications", nil) description:nil];
-		  
+  
 	NSArray *sections = [NSArray arrayWithObjects:mainSection, productsSection, pushSectionFieldSection, nil];
 	settingsViewController = [[[FieldEditorViewController alloc] initWithFieldSections:sections title:NSLocalizedString(@"Settings",nil)] autorelease];
 	settingsViewController.doneButtonTitle = NSLocalizedString(@"Done", nil);
@@ -512,7 +526,7 @@
     KKPasscodeSettingsViewController *vc = [[[KKPasscodeSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
     vc.delegate = self;
     [settingsNavController pushViewController:vc animated:YES];
-     } else if ([key isEqualToString:kUpdateExchangeRatesButton]) {
+  } else if ([key isEqualToString:kUpdateExchangeRatesButton]) {
 		[[CurrencyManager sharedManager] forceRefresh];
 	} else if ([key isEqualToString:kImportReportsButton]) {
 		ASAccount *account = (ASAccount *)editor.context;
@@ -523,11 +537,11 @@
 			if (!canStartImport) {
 				[[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Files Found", nil) message:NSLocalizedString(@"The Documents directory does not contain any .txt files. Please use iTunes File Sharing to transfer report files to your device.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 			} else {
-				UIAlertView *confirmImportAlert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Begin Import?", nil) 
-																			  message:NSLocalizedString(@"Do you want to start importing all report files in the Documents directory into this account?", nil) 
-																			 delegate:self 
-																	cancelButtonTitle:NSLocalizedString(@"Cancel", nil) 
-																	otherButtonTitles:NSLocalizedString(@"Start Import", nil), nil] autorelease];
+				UIAlertView *confirmImportAlert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Begin Import?", nil)
+                                                                      message:NSLocalizedString(@"Do you want to start importing all report files in the Documents directory into this account?", nil)
+                                                                     delegate:self
+                                                            cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                                            otherButtonTitles:NSLocalizedString(@"Start Import", nil), nil] autorelease];
 				confirmImportAlert.tag = kAlertTagConfirmImport;
 				[confirmImportAlert show];
 			}
@@ -539,11 +553,11 @@
 		NSString *appStoreURLString = [NSString stringWithFormat:@"http://itunes.apple.com/app/id%@", productID];
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:appStoreURLString]];
 	} else if ([key isEqualToString:kDeleteAccountButton]) {
-		UIAlertView *confirmDeleteAlert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Delete Account?", nil) 
-																	  message:NSLocalizedString(@"Do you really want to delete this account and all of its data?", nil) 
-																	 delegate:self 
-															cancelButtonTitle:NSLocalizedString(@"Cancel", nil) 
-															otherButtonTitles:NSLocalizedString(@"Delete", nil), nil] autorelease];
+		UIAlertView *confirmDeleteAlert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Delete Account?", nil)
+                                                                  message:NSLocalizedString(@"Do you really want to delete this account and all of its data?", nil)
+                                                                 delegate:self
+                                                        cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                                        otherButtonTitles:NSLocalizedString(@"Delete", nil), nil] autorelease];
 		confirmDeleteAlert.tag = kAlertTagConfirmDelete;
 		[confirmDeleteAlert show];
 	} else if ([key isEqualToString:@"SelectVendorIDButton"]) {
@@ -570,8 +584,8 @@
 		[hud showWhileExecuting:@selector(findVendorIDsWithLogin:) onTarget:self withObject:loginInfo animated:YES];
 	} else if ([key isEqualToString:kDownloadBoxcarButton]) {
 		if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"boxcar://provider/965"]]) {
-			[[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Boxcar Already Installed", nil) 
-										 message:NSLocalizedString(@"The Boxcar app is already installed on your device. Please tap \"Add AppSales to Boxcar\" to start receiving push notifications.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+			[[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Boxcar Already Installed", nil)
+                                   message:NSLocalizedString(@"The Boxcar app is already installed on your device. Please tap \"Add AppSales to Boxcar\" to start receiving push notifications.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 		} else {
 			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/app/boxcar/id321493542"]];
 		}
@@ -579,8 +593,8 @@
 		if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"boxcar://provider/965"]]) {
 			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"boxcar://provider/965"]];
 		} else {
-			[[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Boxcar Not Installed", nil) 
-										 message:NSLocalizedString(@"The Boxcar app is not installed on your device. Please download it from the App Store and try again.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+			[[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Boxcar Not Installed", nil)
+                                   message:NSLocalizedString(@"The Boxcar app is not installed on your device. Please download it from the App Store and try again.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 		}
 	}
 }
@@ -598,7 +612,7 @@
 	dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 		[[NSFileManager defaultManager] createDirectoryAtPath:exportPath withIntermediateDirectories:YES attributes:nil error:NULL];
 		
-		void (^exportBlock)(Report *report) = ^ (Report *report) { 
+		void (^exportBlock)(Report *report) = ^ (Report *report) {
 			NSString *csv = [report valueForKeyPath:@"originalReport.content"];
 			NSString *filename = [report valueForKeyPath:@"originalReport.filename"];
 			if ([filename hasSuffix:@".gz"]) {
@@ -633,11 +647,11 @@
 		
 		[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
 		
-		UIAlertView *exportCompletedAlert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Export Completed", nil) 
-																		message:NSLocalizedString(@"The report files of this account have been exported as a Zip archive. You can now access the archive via iTunes file sharing or open it in a suitable app.", nil) 
-																	   delegate:self 
-															  cancelButtonTitle:NSLocalizedString(@"Done", nil) 
-															  otherButtonTitles:NSLocalizedString(@"Open in...", nil), nil] autorelease];
+		UIAlertView *exportCompletedAlert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Export Completed", nil)
+                                                                    message:NSLocalizedString(@"The report files of this account have been exported as a Zip archive. You can now access the archive via iTunes file sharing or open it in a suitable app.", nil)
+                                                                   delegate:self
+                                                          cancelButtonTitle:NSLocalizedString(@"Done", nil)
+                                                          otherButtonTitles:NSLocalizedString(@"Open in...", nil), nil] autorelease];
 		exportCompletedAlert.tag = kAlertTagExportCompleted;
 		[exportCompletedAlert show];
 	});
@@ -723,7 +737,7 @@
 - (void)saveContext
 {
 	NSError *error = nil;
-	if (![[self managedObjectContext] save:&error]) { 
+	if (![[self managedObjectContext] save:&error]) {
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		abort();
 	}
@@ -737,7 +751,7 @@
 	[managedObjectContext release];
 	[exportedReportsZipPath release];
 	[documentInteractionController release];
-    [super dealloc];
+  [super dealloc];
 }
 
 

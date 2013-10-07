@@ -62,7 +62,7 @@
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:ASViewSettingsDidChangeNotification object:nil];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willShowPasscodeLock:) name:ASWillShowPasscodeLockNotification object:nil];
-    }
+  }
 	return self;
 }
 
@@ -78,6 +78,11 @@
 {
 	[super loadView];
 	
+  if( [self respondsToSelector:@selector(edgesForExtendedLayout)] )
+  {
+    [self performSelector:@selector(setEdgesForExtendedLayout:) withObject:[NSNumber numberWithInteger:0]];
+  }
+  
 	self.viewMode = [[NSUserDefaults standardUserDefaults] integerForKey:kSettingDashboardViewMode];
 	
 	BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad);
@@ -89,7 +94,7 @@
 	graphView.dataSource = self;
 	[graphView setUnit:(viewMode != DashboardViewModeRevenue) ? @"" : [[CurrencyManager sharedManager] baseCurrencyDescription]];
 	if (!iPad) {
-		[graphView.sectionLabelButton addTarget:self action:@selector(showGraphOptions:) forControlEvents:UIControlEventTouchUpInside];	
+		[graphView.sectionLabelButton addTarget:self action:@selector(showGraphOptions:) forControlEvents:UIControlEventTouchUpInside];
 	} else {
 		graphView.sectionLabelButton.enabled = NO;
 	}
@@ -122,9 +127,9 @@
 	
 	self.navigationItem.titleView = tabControl;
 	
-	self.downloadReportsButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh 
-																				  target:self 
-																				  action:@selector(downloadReports:)] autorelease];
+	self.downloadReportsButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                                                                  target:self
+                                                                                  action:@selector(downloadReports:)] autorelease];
 	downloadReportsButtonItem.enabled = !self.account.isDownloadingReports;
 	self.navigationItem.rightBarButtonItem = downloadReportsButtonItem;
 	if ([self shouldShowStatusBar]) {
@@ -301,20 +306,20 @@
 {
 	if (self.account.password && self.account.password.length > 0) { //Only download reports for accounts with login
 		if (!account.vendorID || account.vendorID.length == 0) {
-			[[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Vendor ID Missing", nil) 
-										 message:NSLocalizedString(@"You have not entered a vendor ID for this account. Please go to the account's settings and fill in the missing information.", nil) 
-										delegate:nil 
-							   cancelButtonTitle:NSLocalizedString(@"OK", nil) 
-							   otherButtonTitles:nil] autorelease] show];
+			[[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Vendor ID Missing", nil)
+                                   message:NSLocalizedString(@"You have not entered a vendor ID for this account. Please go to the account's settings and fill in the missing information.", nil)
+                                  delegate:nil
+                         cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                         otherButtonTitles:nil] autorelease] show];
 		} else {
 			[[ReportDownloadCoordinator sharedReportDownloadCoordinator] downloadReportsForAccount:self.account];
 		}
 	} else {
-		[[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Missing", nil) 
-									 message:NSLocalizedString(@"You have not entered your iTunes Connect login for this account.", nil)
-									delegate:nil 
-						   cancelButtonTitle:NSLocalizedString(@"OK", nil) 
-						   otherButtonTitles:nil] autorelease] show];
+		[[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Missing", nil)
+                                 message:NSLocalizedString(@"You have not entered your iTunes Connect login for this account.", nil)
+                                delegate:nil
+                       cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                       otherButtonTitles:nil] autorelease] show];
 	}
 	
 }
@@ -354,18 +359,18 @@
 - (void)showGraphOptions:(id)sender
 {
 	if (selectedTab == 0) {
-		self.activeSheet = [[[UIActionSheet alloc] initWithTitle:nil 
-											 delegate:self 
-									cancelButtonTitle:NSLocalizedString(@"Cancel", nil) 
-							   destructiveButtonTitle:nil 
-									otherButtonTitles:NSLocalizedString(@"Daily Reports", nil), NSLocalizedString(@"Weekly Reports", nil), nil] autorelease];
+		self.activeSheet = [[[UIActionSheet alloc] initWithTitle:nil
+                                                    delegate:self
+                                           cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                      destructiveButtonTitle:nil
+                                           otherButtonTitles:NSLocalizedString(@"Daily Reports", nil), NSLocalizedString(@"Weekly Reports", nil), nil] autorelease];
 		self.activeSheet.tag = kSheetTagDailyGraphOptions;
 	} else {
-		self.activeSheet = [[[UIActionSheet alloc] initWithTitle:nil 
-											 delegate:self 
-									cancelButtonTitle:NSLocalizedString(@"Cancel", nil) 
-							   destructiveButtonTitle:nil 
-									otherButtonTitles:NSLocalizedString(@"Calendar Months", nil), NSLocalizedString(@"Fiscal Months", nil), nil] autorelease];
+		self.activeSheet = [[[UIActionSheet alloc] initWithTitle:nil
+                                                    delegate:self
+                                           cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                      destructiveButtonTitle:nil
+                                           otherButtonTitles:NSLocalizedString(@"Calendar Months", nil), NSLocalizedString(@"Fiscal Months", nil), nil] autorelease];
 		self.activeSheet.tag = kSheetTagMonthlyGraphOptions;
 	}
 	[self.activeSheet showInView:self.view];
@@ -533,37 +538,37 @@
 			report = [self.sortedCalendarMonthReports objectAtIndex:index];
 		}
 	}
-    
-    float value = 0;
-    
-    NSArray* tProducts = ((self.selectedProducts) ? self.selectedProducts : self.visibleProducts);
-    
-    for (Product * selectedProduct in tProducts) {
-        if (viewMode == DashboardViewModeRevenue) {
-            value += [report totalRevenueInBaseCurrencyForProductWithID:selectedProduct.productID];
-        } else {
-            if (viewMode == DashboardViewModeSales) {
-                value += [report totalNumberOfPaidDownloadsForProductWithID:selectedProduct.productID];
-            } else if (viewMode == DashboardViewModeUpdates) {
-                value += [report totalNumberOfUpdatesForProductWithID:selectedProduct.productID];
-            } else if (viewMode == DashboardViewModeEducationalSales) {
-                value += [report totalNumberOfEducationalSalesForProductWithID:selectedProduct.productID];
-            } else if (viewMode == DashboardViewModeGiftPurchases) {
-                value += [report totalNumberOfGiftPurchasesForProductWithID:selectedProduct.productID];
-            } else if (viewMode == DashboardViewModePromoCodes) {
-                value += [report totalNumberOfPromoCodeTransactionsForProductWithID:selectedProduct.productID];
-            }
-        }
-    }
-    
-    NSString *labelText = @"";
+  
+  float value = 0;
+  
+  NSArray* tProducts = ((self.selectedProducts) ? self.selectedProducts : self.visibleProducts);
+  
+  for (Product * selectedProduct in tProducts) {
     if (viewMode == DashboardViewModeRevenue) {
-        labelText = [NSString stringWithFormat:@"%@%i", [[CurrencyManager sharedManager] baseCurrencyDescription], (int)roundf(value)];
+      value += [report totalRevenueInBaseCurrencyForProductWithID:selectedProduct.productID];
     } else {
-        labelText = [NSString stringWithFormat:@"%i", (int)value];
+      if (viewMode == DashboardViewModeSales) {
+        value += [report totalNumberOfPaidDownloadsForProductWithID:selectedProduct.productID];
+      } else if (viewMode == DashboardViewModeUpdates) {
+        value += [report totalNumberOfUpdatesForProductWithID:selectedProduct.productID];
+      } else if (viewMode == DashboardViewModeEducationalSales) {
+        value += [report totalNumberOfEducationalSalesForProductWithID:selectedProduct.productID];
+      } else if (viewMode == DashboardViewModeGiftPurchases) {
+        value += [report totalNumberOfGiftPurchasesForProductWithID:selectedProduct.productID];
+      } else if (viewMode == DashboardViewModePromoCodes) {
+        value += [report totalNumberOfPromoCodeTransactionsForProductWithID:selectedProduct.productID];
+      }
     }
-    
-    return labelText;
+  }
+  
+  NSString *labelText = @"";
+  if (viewMode == DashboardViewModeRevenue) {
+    labelText = [NSString stringWithFormat:@"%@%i", [[CurrencyManager sharedManager] baseCurrencyDescription], (int)roundf(value)];
+  } else {
+    labelText = [NSString stringWithFormat:@"%i", (int)value];
+  }
+  
+  return labelText;
 }
 
 - (NSString *)graphView:(GraphView *)graphView labelForSectionAtIndex:(NSUInteger)index
@@ -658,13 +663,13 @@
 		self.selectedReportPopover = [[[UIPopoverController alloc] initWithContentViewController:nav] autorelease];
 		self.selectedReportPopover.passthroughViews = [NSArray arrayWithObjects:self.graphView, nil];
 		if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
-			[self.selectedReportPopover presentPopoverFromRect:barFrame 
-														inView:self.graphView 
-									  permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+			[self.selectedReportPopover presentPopoverFromRect:barFrame
+                                                  inView:self.graphView
+                                permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 		} else {
-			[self.selectedReportPopover presentPopoverFromRect:barFrame 
-														inView:self.graphView 
-									  permittedArrowDirections:UIPopoverArrowDirectionLeft | UIPopoverArrowDirectionRight animated:YES];
+			[self.selectedReportPopover presentPopoverFromRect:barFrame
+                                                  inView:self.graphView
+                                permittedArrowDirections:UIPopoverArrowDirectionLeft | UIPopoverArrowDirectionRight animated:YES];
 		}
 	}
 }
@@ -723,9 +728,9 @@
 		}
 		
 		if (viewMode == DashboardViewModeRevenue) {
-			NSString *label = [NSString stringWithFormat:@"%@%i", 
-							   [[CurrencyManager sharedManager] baseCurrencyDescription], 
-							   (int)roundf([latestReport totalRevenueInBaseCurrencyForProductWithID:product.productID])];
+			NSString *label = [NSString stringWithFormat:@"%@%i",
+                         [[CurrencyManager sharedManager] baseCurrencyDescription],
+                         (int)roundf([latestReport totalRevenueInBaseCurrencyForProductWithID:product.productID])];
 			[latestValueButton setTitle:label forState:UIControlStateNormal];
 		} else {
 			int latestNumber = 0;
@@ -752,17 +757,17 @@
 - (void)selectAdvancedViewMode:(UILongPressGestureRecognizer *)gestureRecognizer
 {
 	if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-		self.activeSheet = [[[UIActionSheet alloc] initWithTitle:nil 
-															delegate:self 
-												   cancelButtonTitle:NSLocalizedString(@"Cancel", nil) 
-											  destructiveButtonTitle:nil 
-												   otherButtonTitles:
-								 NSLocalizedString(@"Revenue", nil), 
-								 NSLocalizedString(@"Sales", nil), 
-								 NSLocalizedString(@"Updates", nil), 
-								 NSLocalizedString(@"Educational Sales", nil), 
-								 NSLocalizedString(@"Gift Purchases", nil), 
-								 NSLocalizedString(@"Promo Codes", nil), nil] autorelease];
+		self.activeSheet = [[[UIActionSheet alloc] initWithTitle:nil
+                                                    delegate:self
+                                           cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                      destructiveButtonTitle:nil
+                                           otherButtonTitles:
+                         NSLocalizedString(@"Revenue", nil),
+                         NSLocalizedString(@"Sales", nil),
+                         NSLocalizedString(@"Updates", nil),
+                         NSLocalizedString(@"Educational Sales", nil),
+                         NSLocalizedString(@"Gift Purchases", nil),
+                         NSLocalizedString(@"Promo Codes", nil), nil] autorelease];
 		self.activeSheet.tag = kSheetTagAdvancedViewMode;
 		[self.activeSheet showInView:self.navigationController.view];
 	}
@@ -771,13 +776,13 @@
 #pragma mark - Table view delegate
 
 - (void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer {
-    [super handleLongPress:gestureRecognizer];
-    [self.graphView reloadValuesAnimated:YES];
+  [super handleLongPress:gestureRecognizer];
+  [self.graphView reloadValuesAnimated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [super tableView:tableView didDeselectRowAtIndexPath:indexPath];
-    [self.graphView reloadValuesAnimated:YES];
+  [super tableView:tableView didDeselectRowAtIndexPath:indexPath];
+  [self.graphView reloadValuesAnimated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

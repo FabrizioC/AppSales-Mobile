@@ -610,7 +610,7 @@
 				break;
 			}
 		}
-		NSMutableArray *steps = [NSMutableSet set];
+		NSMutableArray *steps = [NSMutableArray array];
 		int step = pickedUnit;
 		while (step <= newMax && pickedUnit != 0) {
 			[steps addObject:[NSNumber numberWithInt:step]];
